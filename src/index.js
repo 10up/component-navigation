@@ -2,7 +2,7 @@
 
 import ComponentName from './component-name';
 
-if ( window.tenup )
+if ( window.TenUp )
 	window.TenUp = [...window.TenUp];
 else
 	window.TenUp = [];
