@@ -1,28 +1,41 @@
-const path = require('path');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+'use strict';
+
+const path = require( 'path' );
+const BrowserSyncPlugin = require( 'browser-sync-webpack-plugin' );
+const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
+
+const componentName = 'component';
 
 module.exports = {
-	mode: process.env.WEBPACK_SERVE ? 'development' : 'production',
+	mode: process.env.NODE_ENV ? 'development' : 'production',
 	entry: [
 		'./src/index.js',
 		'./src/style.css'
 	],
 	output: {
-		path: path.resolve(__dirname, './dist'),
-		filename: 'component-name.js'
+		path: path.resolve( __dirname, './dist' ),
+		filename: `${ componentName }.js`,
 	},
 	module: {
 		rules: [
 			{
 				test: /\.js$/,
-				exclude: /node_modules/,
-				use: 'babel-loader'
+				exclude: /(node_modules)/,
+				enforce: 'pre',
+				use: {
+					loader: 'eslint-loader'
+				}
+			},
+			{
+				test: /\.js$/,
+				exclude: /(node_modules)/,
+				use: {
+					loader: 'babel-loader'
+				}
 			},
 			{
 				test: /\.css$/,
+				exclude: /(node_modules)/,
 				use: [
 					MiniCssExtractPlugin.loader,
 					'css-loader',
@@ -31,28 +44,22 @@ module.exports = {
 			}
 		]
 	},
+	devtool: 'source-map',
+	stats: {
+		colors: true
+	},
 	plugins: [
-		new MiniCssExtractPlugin({
-			filename: 'component-name.css'
-		}),
-		new BrowserSyncPlugin({
+		new BrowserSyncPlugin( {
 			host: '0.0.0.0',
 			port: 3000,
-			proxy: 'http://0.0.0.0:8080/',
-			notify: false
-		},{
-			reload: false
-		})
+			server: { baseDir: [ __dirname ] },
+			notify: false,
+			files: ['index.html', 'dist/**/*'],
+			stream: { once: true },
+			injectChanges: true
+		} ),
+		new MiniCssExtractPlugin( {
+			filename: `${ componentName }.css`,
+		} ),
 	],
-	optimization: {
-		minimizer: [
-			new UglifyJsPlugin({
-				cache: true,
-				parallel: true,
-				sourceMap: true
-			}),
-			new OptimizeCSSAssetsPlugin({})
-		]
-	}
 };
-

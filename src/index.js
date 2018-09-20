@@ -1,10 +1,9 @@
 // Component Scaffold
 
-import ComponentName from './component-name';
+import Component from './component';
 
-if ( window.TenUp )
-	window.TenUp = [...window.TenUp];
-else
-	window.TenUp = [];
+if ( 'object' !== typeof window.TenUp ) {
+	window.TenUp = {};
+}
 
-window.TenUp.ComponentName = ComponentName;
+window.TenUp.component = Component;
