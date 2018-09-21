@@ -1,9 +1,9 @@
 // Component Scaffold
 
-import TenUpNavigation from './component';
+import Component from './component';
 
 if ( 'object' !== typeof window.TenUp ) {
 	window.TenUp = {};
 }
 
-window.TenUp.navigation = TenUpNavigation;
+window.TenUp.component = Component;
