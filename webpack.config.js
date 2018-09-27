@@ -4,7 +4,7 @@ const path = require( 'path' );
 const BrowserSyncPlugin = require( 'browser-sync-webpack-plugin' );
 const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 
-const componentName = 'component';
+const componentName = 'navigation';
 
 module.exports = {
 	mode: process.env.NODE_ENV ? 'development' : 'production',

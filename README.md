@@ -1,6 +1,6 @@
-# 10up Component Name
+# Navigation
 
-This is a scaffold for building new components for the 10up Component Library.
+Accessible navigation component.
 
 ## Getting started
 

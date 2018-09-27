@@ -1,9 +1,10 @@
 {
-  "name": "@10up/component-scaffold",
+  "name": "@10up/component-navigation",
   "version": "1.0.0",
   "author": "10up",
-  "description": "Component scaffold to use as a template for building new components.",
-  "main": "./src/component.js",
+  "description": "Accessible navigation component.",
+  "main": "./src/navigation.js",
+  "style": "./dist/navigation.css",
   "scripts": {
     "start": "npm install && npm run build",
     "build": "webpack",
@@ -11,13 +12,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/10up/component-scaffold.git"
+    "url": "git+https://github.com/10up/component-navigation.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/10up/component-scaffold/issues"
+    "url": "https://github.com/10up/component-navigation/issues"
   },
-  "homepage": "https://github.com/10up/component-scaffold#readme",
+  "homepage": "https://github.com/10up/component-navigation#readme",
   "devDependencies": {
     "@10up/eslint-config": "^1.0.6",
     "@babel/cli": "^7.0.0",
