@@ -38,7 +38,7 @@ export default class TenUpNavigation {
 			return;
 		}
 
-		this.$menuToggle = document.querySelector( `[data-responsive-nav-control="${this.$menu.getAttribute( 'id' )}"]` );
+		this.$menuToggle = document.querySelector( `[aria-controls="${this.$menu.getAttribute( 'id' )}"]` );
 
 		// Also bail early if the toggle isn't set.
 		if ( ! this.$menuToggle ) {
