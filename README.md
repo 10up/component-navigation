@@ -36,52 +36,18 @@ Accessible navigation component.
  ```html
 <nav class="site-navigation" role="navigation" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
 
-	<a href="#primary-nav" data-responsive-nav-control="primary-nav">
+	<a href="#primary-nav" aria-controls="primary-nav">
 		<span class="screen-reader-text">Primary Menu</span>
 		<span aria-hidden="true">☰</span>
 	</a>
 
-	<ul id="primary-nav" class="primary-menu">
-		<li id="menu-item-1912" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1912">
-			<a href="#!aboutus">About Us</a>
-		</li>
-		<li id="menu-item-1913" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1913">
-			<a href="#!ourwork">Our Work</a>
-			<ul class="sub-menu">
-				<li id="menu-item-1914" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1914">
-					<a href="#!js">JavaScript</a>
-				</li>
-				<li id="menu-item-4494" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-4494">
-					<a href="#!wp">WordPress</a>
-					<ul class="sub-menu">
-						<li id="menu-item-4495" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-4495">
-							<a href="#!plugins">Plugins</a>
-						</li>
-						<li id="menu-item-4496" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-4496">
-							<a href="#!themes">Themes</a>
-						</li>
-						<li id="menu-item-4496" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-4496">
-							<a href="#!last">Last WP Item</a>
-						</li>
-					</ul>
-				</li>
-			</ul>
-		</li>
-		<li id="menu-item-1915" class="current-menu-item menu-item menu-item-type-custom menu-item-object-custom menu-item-1915">
-			<a href="#!giving">Giving Back</a>
-		</li>
-		<li id="menu-item-1916" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1916 menu-item-has-children">
-			<a href="#!blog">Blog</a>
-			<ul class="sub-menu">
-				<li class="menu-item"><a href="#!post">Blog Post 1</a></li>
-				<li class="menu-item"><a href="#!post">Blog Post 2</a></li>
-				<li class="menu-item"><a href="#!post">Blog Post 3</a></li>
-			</ul>
-		</li>
-		<li id="menu-item-1916" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1916">
-			<a href="#!contact">Contact</a>
-		</li>
-	</ul>
+	<?php
+		wp_nav_menu( array(
+			'theme_location' => 'primary',
+			'menu_class'     => 'primary-menu',
+			'menu_id'        => 'primary-nav',
+			) );
+	?>
 
 </nav>
  ```
