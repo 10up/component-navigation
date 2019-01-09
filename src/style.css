@@ -1,6 +1,6 @@
 @import 'assets/core.css';
 
-.TenUp__navigation__menu {
+.navigation__menu {
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -13,9 +13,9 @@
 		display: block;
 	}
 }
-.TenUp__navigation__menu--main {
+.navigation__menu--main {
 
-	& > .TenUp__navigation__menu-item {
+	& > .navigation__menu-item {
 		display: block;
 
 		@media (--width-medium) {
@@ -23,7 +23,7 @@
 		}
 	}
 }
-.TenUp__navigation__menu--submenu {
+.navigation__menu--submenu {
 
 	@media (--width-medium) {
 		left: 0;
@@ -31,23 +31,23 @@
 		top: 100%;
 	}
 
-	& > .TenUp__navigation__menu-item {
+	& > .navigation__menu-item {
 		display: block;
 	}
 }
-.TenUp__navigation__menu--hover {
-	.TenUp__navigation__menu-item {
+.navigation__menu--hover {
+	.navigation__menu-item {
 		&:hover {
 			@media (--width-medium) {
-				& > .TenUp__navigation__menu--submenu,
-				& > .TenUp__navigation__menu--submenu[aria-hidden="true"] {
+				& > .navigation__menu--submenu,
+				& > .navigation__menu--submenu[aria-hidden="true"] {
 					display: block;
 				}
 			}
 		}
 	}
 }
-.TenUp__navigation__menu-toggle {
+.navigation__menu-toggle {
 	&[aria-hidden="true"] {
 		display: none;
 	}
@@ -55,7 +55,7 @@
 		display: block;
 	}
 }
-.TenUp__navigation__menu-item {
+.navigation__menu-item {
 	@media (--width-medium) {
 		position: relative;
 	}
