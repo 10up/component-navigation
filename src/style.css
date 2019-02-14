@@ -1,6 +1,6 @@
 @import 'assets/core.css';
 
-.navigation__menu {
+.primary-menu {
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -12,10 +12,8 @@
 	&[aria-hidden="false"] {
 		display: block;
 	}
-}
-.navigation__menu--main {
 
-	& > .navigation__menu-item {
+	& > .menu-item {
 		display: block;
 
 		@media (--width-medium) {
@@ -23,7 +21,19 @@
 		}
 	}
 }
-.navigation__menu--submenu {
+
+.sub-menu {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+
+	&[aria-hidden="true"] {
+		display: none;
+	}
+	&:target,
+	&[aria-hidden="false"] {
+		display: block;
+	}
 
 	@media (--width-medium) {
 		left: 0;
@@ -31,23 +41,24 @@
 		top: 100%;
 	}
 
-	& > .navigation__menu-item {
+	& > .menu-item {
 		display: block;
 	}
 }
-.navigation__menu--hover {
-	.navigation__menu-item {
+.primary-menu[data-action="hover"] {
+	& .menu-item {
 		&:hover {
 			@media (--width-medium) {
-				& > .navigation__menu--submenu,
-				& > .navigation__menu--submenu[aria-hidden="true"] {
+				& > .sub-menu,
+				& > .sub-menu[aria-hidden="true"] {
 					display: block;
 				}
 			}
 		}
 	}
 }
-.navigation__menu-toggle {
+
+.site-menu-toggle {
 	&[aria-hidden="true"] {
 		display: none;
 	}
@@ -55,7 +66,7 @@
 		display: block;
 	}
 }
-.navigation__menu-item {
+.menu-item {
 	@media (--width-medium) {
 		position: relative;
 	}

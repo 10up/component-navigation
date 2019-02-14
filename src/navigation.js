@@ -83,6 +83,8 @@ export default class TenUpNavigation {
 		const href = this.$menuToggle.getAttribute( 'href' );
 		const hrefTarget = href.replace( '#', '' );
 
+		this.$menu.dataset.action = this.settings.action;
+
 		// Check for a valid ID on the menu.
 		if ( ! id || '' === id ) {
 			console.error( '10up Navigation: Target (menu) must have a valid ID attribute.' ); // eslint-disable-line
@@ -93,24 +95,6 @@ export default class TenUpNavigation {
 		if ( hrefTarget !== id ) {
 			console.warn( '10up Navigation: The menu toggle href and menu ID are not equal.' ); // eslint-disable-line
 		}
-
-		// Add classes for our plugin styles.
-		this.$menu.closest( 'nav' ).classList.add( 'navigation' );
-		this.$menu.classList.add( 'navigation__menu' );
-		this.$menu.classList.add( 'navigation__menu--main' );
-		this.$menuToggle.classList.add( 'navigation__menu-toggle' );
-
-		// Add additional classes based on interaction type.
-		if ( 'click' === this.settings.action ) {
-			this.$menu.classList.add( 'navigation__menu--click' );
-		} else {
-			this.$menu.classList.add( 'navigation__menu--hover' );
-		}
-
-		// Update classes on menu items.
-		this.$menuItems.forEach( $menuItem => {
-			$menuItem.classList.add( 'navigation__menu-item' );
-		} );
 
 		// Update ARIA.
 		this.$menuToggle.setAttribute( 'aria-controls', hrefTarget );
@@ -131,11 +115,7 @@ export default class TenUpNavigation {
 			const $anchor    = $submenu.previousElementSibling;
 			const submenuID  = `tenUp-submenu-${index}`;
 
-			$submenu.classList.add( 'navigation__menu' );
-			$submenu.classList.add( 'navigation__menu--submenu' );
-
 			$submenu.setAttribute( 'id', submenuID );
-			$anchor.classList.add( 'navigation__submenu-parent-anchor' );
 
 			// Update ARIA.
 			$submenu.setAttribute( 'aria-label', 'Submenu' );
@@ -237,7 +217,6 @@ export default class TenUpNavigation {
 	openSubmenu( $submenu ) {
 		// Open the submenu by updating ARIA and class.
 		$submenu.setAttribute( 'aria-hidden', false );
-		$submenu.classList.add( 'navigation__menu--submenu-is-open' );
 
 		// Custom open event
 		if ( this.settings.onSubmenuOpen && 'function' === typeof this.settings.onSubmenuOpen ) {
@@ -253,11 +232,10 @@ export default class TenUpNavigation {
 	 */
 	closeSubmenu( $submenu ) {
 		const $anchor = $submenu.previousElementSibling;
-		const $childSubmenus = $submenu.querySelectorAll( 'li > .navigation__menu--submenu-is-open' );
+		const $childSubmenus = $submenu.querySelectorAll( 'li > .sub-menu[aria-hidden="false"]' );
 
 		// Close the submenu by updating ARIA and class.
 		$submenu.setAttribute( 'aria-hidden', true );
-		$submenu.classList.remove( 'navigation__menu--submenu-is-open' );
 
 		if ( $childSubmenus ) {
 			// Close any children as well.
@@ -310,10 +288,6 @@ export default class TenUpNavigation {
 		// Is the menu currently open?
 		if ( isExpanded ) {
 
-			// Update classes
-			this.$menu.classList.remove( 'navigation__menu--is-open' );
-			this.$menuToggle.classList.remove( 'navigation__menu-toggle--is-open' );
-
 			// Update ARIA
 			this.$menu.setAttribute( 'aria-hidden', true );
 			this.$menuToggle.setAttribute( 'aria-expanded', false );
@@ -323,10 +297,6 @@ export default class TenUpNavigation {
 				this.settings.onClose.call();
 			}
 		} else {
-
-			// Update classes
-			this.$menu.classList.add( 'navigation__menu--is-open' );
-			this.$menuToggle.classList.add( 'navigation__menu-toggle--is-open' );
 
 			// Update ARIA
 			this.$menu.setAttribute( 'aria-hidden', false );
@@ -349,7 +319,7 @@ export default class TenUpNavigation {
 	 * @returns {null} Nothing.
 	 */
 	listenerDocumentClick() {
-		const $openSubmenus = this.$menu.querySelectorAll( '.navigation__menu--submenu-is-open' );
+		const $openSubmenus = this.$menu.querySelectorAll( '.sub-menu[aria-hidden="false"]' );
 
 		// Bail if no submenus are found.
 		if ( ! $openSubmenus ) {
@@ -369,7 +339,7 @@ export default class TenUpNavigation {
 	 * @returns {null}         Nothing.
 	 */
 	listenerDocumentKeyup( event ) {
-		const $openSubmenus = this.$menu.querySelectorAll( '.navigation__menu--submenu-is-open' );
+		const $openSubmenus = this.$menu.querySelectorAll( '.sub-menu[aria-hidden="false"]' );
 
 		// Bail early if not using the escape key or if no submenus are found.
 		if ( ! $openSubmenus || 27 !== event.keyCode ) {
@@ -431,7 +401,7 @@ export default class TenUpNavigation {
 		const $anchor = event.target;
 		const $menuItem = $anchor.parentNode;
 		const $submenu = $anchor.nextElementSibling;
-		const $childSubmenus = $menuItem.parentNode.querySelectorAll( '.navigation__menu--submenu' );
+		const $childSubmenus = $menuItem.parentNode.querySelectorAll( '.sub-menu' );
 
 		// Bail early if no submenu is found or if we're on a small screen.
 		if ( ! $submenu || ! this.mq.matches ) {
