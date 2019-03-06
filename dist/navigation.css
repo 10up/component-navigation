@@ -53,6 +53,11 @@
 		display: block;
 	}
 @media (min-width: 48em) {
+.site-menu-toggle {
+		display: none
+}
+	}
+@media (min-width: 48em) {
 .menu-item {
 		position: relative
 }
