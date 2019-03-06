@@ -368,6 +368,13 @@ export default class TenUpNavigation {
 		const $submenu = $anchor.nextElementSibling;
 		const isHidden = ( 'true' === $submenu.getAttribute( 'aria-hidden' ) );
 
+		let $openSubmenus = this.$menu.querySelectorAll( '.sub-menu[aria-hidden="false"]' );
+
+		$openSubmenus = [...$openSubmenus].filter( menu => !menu.contains( $anchor ) );
+
+		// Close the submenus.
+		this.closeSubmenus( $openSubmenus );
+
 		// Bail if set to hover and we're on a large screen.
 		if ( 'hover' === this.settings.action && this.mq.matches ) {
 			return;
