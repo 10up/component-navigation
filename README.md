@@ -1,6 +1,6 @@
-# 10up Navigation
+# 10up Navigation component
 
-Accessible navigation component.
+An accessible and responsive navigation component.
 
 ## Installation
 
