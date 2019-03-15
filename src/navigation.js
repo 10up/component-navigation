@@ -6,12 +6,14 @@
  * @description
  *
  * Create responsive navigation.
- *
- * @param {string} element Element selector for navigation container.
- * @param {Object} options Object of optional callbacks.
  */
 export default class TenUpNavigation {
 
+	/**
+	 * constructor method
+	 * @param {string} element Element selector for navigation container.
+	 * @param {Object} options Object of optional callbacks.
+	 */
 	constructor( element, options = {} ) {
 
 		// Defaults
