@@ -1,49 +1,64 @@
-.TenUp__navigation__menu {
+.primary-menu {
 	list-style: none;
 	margin: 0;
 	padding: 0
 }
-.TenUp__navigation__menu[aria-hidden="true"] {
+.primary-menu[aria-hidden="true"] {
 		display: none;
 	}
-.TenUp__navigation__menu:target,
-	.TenUp__navigation__menu[aria-hidden="false"] {
+.primary-menu:target,
+	.primary-menu[aria-hidden="false"] {
 		display: block;
 	}
-.TenUp__navigation__menu--main > .TenUp__navigation__menu-item {
+.primary-menu > .menu-item {
 		display: block
 	}
 @media (min-width: 48em) {
-.TenUp__navigation__menu--main > .TenUp__navigation__menu-item {
+.primary-menu > .menu-item {
 			display: inline-block
 	}
 		}
+.sub-menu {
+	list-style: none;
+	margin: 0;
+	padding: 0
+}
+.sub-menu[aria-hidden="true"] {
+		display: none;
+	}
+.sub-menu:target,
+	.sub-menu[aria-hidden="false"] {
+		display: block;
+	}
 @media (min-width: 48em) {
-.TenUp__navigation__menu--submenu {
+.sub-menu {
 		left: 0;
 		position: absolute;
 		top: 100%
 }
 	}
-.TenUp__navigation__menu--submenu > .TenUp__navigation__menu-item {
-		display: block;
-	}
-.TenUp__navigation__menu--hover {
-			@media (min-width: 48em) {
-				.TenUp__navigation__menu-item:hover > .TenUp__navigation__menu--submenu,
-				.TenUp__navigation__menu-item:hover > .TenUp__navigation__menu--submenu[aria-hidden="true"] {
-					display: block;
-				}
-			}
-}
-.TenUp__navigation__menu-toggle[aria-hidden="true"] {
-		display: none;
-	}
-.TenUp__navigation__menu-toggle[aria-hidden="false"] {
+.sub-menu > .menu-item {
 		display: block;
 	}
 @media (min-width: 48em) {
-.TenUp__navigation__menu-item {
+				.primary-menu[data-action="hover"] .menu-item:hover > .sub-menu,
+				.primary-menu[data-action="hover"] .menu-item:hover > .sub-menu[aria-hidden="true"] {
+					display: block;
+				}
+			}
+.site-menu-toggle[aria-hidden="true"] {
+		display: none;
+	}
+.site-menu-toggle[aria-hidden="false"] {
+		display: block;
+	}
+@media (min-width: 48em) {
+.site-menu-toggle {
+		display: none
+}
+	}
+@media (min-width: 48em) {
+.menu-item {
 		position: relative
 }
 	}
