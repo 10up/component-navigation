@@ -1,6 +1,6 @@
-# 10up Navigation
+# 10up Navigation component
 
-Accessible navigation component.
+An accessible and responsive navigation component.
 
 ## Installation
 
@@ -118,4 +118,4 @@ let myNavigation = new TenUp.navigation( '.navigation', {
 
 ## Demo
 
-An example implementation can be found in the `index.html` file in the root of this package.
+Example implementations can be found in the `demo` directory.

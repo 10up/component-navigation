@@ -1,5 +1,15 @@
 'use strict';
 
+/**
+ * @module TenUpNavigation
+ *
+ * @description
+ *
+ * Create responsive navigation.
+ *
+ * @param {string} element Element selector for navigation container.
+ * @param {Object} options Object of optional callbacks.
+ */
 export default class TenUpNavigation {
 
 	constructor( element, options = {} ) {
@@ -26,10 +36,10 @@ export default class TenUpNavigation {
 		// Settings
 		this.settings = Object.assign( {}, defaults, options );
 
-		// Set MQ
+		// Set media queries.
 		this.mq = window.matchMedia( this.settings.breakpoint );
 
-		// Menu container
+		// Menu container selector.
 		this.$menu = document.querySelector( element );
 
 		// Bail out if there's no menu.
@@ -60,7 +70,10 @@ export default class TenUpNavigation {
 		this.setupSubMenus();
 		this.setupListeners();
 
-		// Do any callbacks, if assigned.
+		/**
+		 * Called after the component is initialized on page load.
+		 * @callback onCreate
+		 */
 		if ( this.settings.onCreate && 'function' === typeof this.settings.onCreate ) {
 			this.settings.onCreate.call();
 		}
@@ -75,7 +88,7 @@ export default class TenUpNavigation {
 	 * Includes adding classes and ARIA.
 	 * We use "scoped" classes so we can be more confident that there will be no collisions.
 	 *
-	 * @returns {null} Nothing.
+	 * @returns {null}
 	 */
 	setupMenu() {
 
@@ -107,7 +120,7 @@ export default class TenUpNavigation {
 	 * Sets up the submenus.
 	 * Adds JS classes and initial AIRA attributes.
 	 *
-	 * @returns {null} Nothing.
+	 * @returns {null}
 	 */
 	setupSubMenus() {
 
@@ -131,7 +144,7 @@ export default class TenUpNavigation {
 	 * Binds our various listeners for the plugin.
 	 * Includes specific element listeners as well as media query.
 	 *
-	 * @returns {null} Nothing.
+	 * @returns {null}
 	 */
 	setupListeners() {
 		const comp = this;
@@ -167,7 +180,7 @@ export default class TenUpNavigation {
 	/**
 	 * Sets an media query related functions when the query boundry is reached.
 	 *
-	 * @returns {null} Nothing.
+	 * @returns {null}
 	 */
 	setMQ() {
 		this.setMQMenuA11y();
@@ -178,7 +191,7 @@ export default class TenUpNavigation {
 	 * Sets any ARIA that changes as a result of the media query boundry being passed.
 	 * Specifically for the toggle and main menu.
 	 *
-	 * @returns {null} Nothing.
+	 * @returns {null}
 	 */
 	setMQMenuA11y() {
 
@@ -200,7 +213,7 @@ export default class TenUpNavigation {
 	 * Sets an media query related functions when the query boundry is reached.
 	 * Specifically for submenus.
 	 *
-	 * @returns {null} Nothing.
+	 * @returns {null}
 	 */
 	setMQSubbmenuA11y() {
 		this.$submenus.forEach( $submenu => {
@@ -212,13 +225,16 @@ export default class TenUpNavigation {
 	 * Opens the passed submenu.
 	 *
 	 * @param   {element} $submenu The submenu to open. Required.
-	 * @returns {null}             Nothing.
+	 * @returns {null}
 	 */
 	openSubmenu( $submenu ) {
 		// Open the submenu by updating ARIA and class.
 		$submenu.setAttribute( 'aria-hidden', false );
 
-		// Custom open event
+		/**
+		 * Called when a submenu item is opened.
+		 * @callback onSubmenuOpen - optional.
+		 */
 		if ( this.settings.onSubmenuOpen && 'function' === typeof this.settings.onSubmenuOpen ) {
 			this.settings.onSubmenuOpen.call();
 		}
@@ -228,7 +244,7 @@ export default class TenUpNavigation {
 	 * Closes the passed submenu.
 	 *
 	 * @param   {element} $submenu The submenu to close. Required.
-	 * @returns {null}             Nothing.
+	 * @returns {null}
 	 */
 	closeSubmenu( $submenu ) {
 		const $anchor = $submenu.previousElementSibling;
@@ -247,7 +263,10 @@ export default class TenUpNavigation {
 			$anchor.focus();
 		}
 
-		// Custom close event
+		/**
+		 * Called when a submenu item is closed.
+		 * @callback onSubmenuClose - optional.
+		 */
 		if ( this.settings.onSubmenuClose && 'function' === typeof this.settings.onSubmenuClose ) {
 			this.settings.onSubmenuClose.call();
 		}
@@ -257,7 +276,7 @@ export default class TenUpNavigation {
 	 * Closes all submenus in the node list.
 	 *
 	 * @param   {nodelist} $submenus The node list of submenus to close. Required.
-	 * @returns {null}               Nothing.
+	 * @returns {null}
 	 */
 	closeSubmenus( $submenus ) {
 		$submenus.forEach( $submenu => {
@@ -274,7 +293,7 @@ export default class TenUpNavigation {
 	 * Opens or closes the menu according to current state.
 	 *
 	 * @param {Object} event The event object.
-	 * @returns {null}       Nothing.
+	 * @returns {null}
 	 */
 	listenerMenuToggleClick( event ) {
 		const isExpanded = ( 'true' === this.$menuToggle.getAttribute( 'aria-expanded' ) );
@@ -292,7 +311,10 @@ export default class TenUpNavigation {
 			this.$menu.setAttribute( 'aria-hidden', true );
 			this.$menuToggle.setAttribute( 'aria-expanded', false );
 
-			// Custom close event
+			/**
+			 * Called when a menu item is closed.
+			 * @callback onClose - optional
+			 */
 			if ( this.settings.onClose && 'function' === typeof this.settings.onClose ) {
 				this.settings.onClose.call();
 			}
@@ -305,7 +327,10 @@ export default class TenUpNavigation {
 			// Focus the first link in the menu
 			this.$menu.querySelectorAll( 'a' )[0].focus();
 
-			// Custom open event
+			/**
+			 * Called when a menu item is opened.
+			 * @callback onOpen - optional
+			 */
 			if ( this.settings.onOpen && 'function' === typeof this.settings.onOpen ) {
 				this.settings.onOpen.call();
 			}
@@ -316,7 +341,7 @@ export default class TenUpNavigation {
 	 * Document click handler.
 	 * Closes all open submenus on a click outside of the menu.
 	 *
-	 * @returns {null} Nothing.
+	 * @returns {null}
 	 */
 	listenerDocumentClick() {
 		const $openSubmenus = this.$menu.querySelectorAll( '.sub-menu[aria-hidden="false"]' );
@@ -336,7 +361,7 @@ export default class TenUpNavigation {
 	 * Refocuses after closing submenus.
 	 *
 	 * @param   {Object} event The event object.
-	 * @returns {null}         Nothing.
+	 * @returns {null}
 	 */
 	listenerDocumentKeyup( event ) {
 		const $openSubmenus = this.$menu.querySelectorAll( '.sub-menu[aria-hidden="false"]' );
@@ -361,12 +386,19 @@ export default class TenUpNavigation {
 	 * Only fires based on settings and if the media query is appropriate.
 	 *
 	 * @param   {Object} event The event object. Required.
-	 * @returns {null}          Nothing.
+	 * @returns {null}
 	 */
 	listenerSubmenuAnchorClick( event ) {
 		const $anchor = event.target;
 		const $submenu = $anchor.nextElementSibling;
 		const isHidden = ( 'true' === $submenu.getAttribute( 'aria-hidden' ) );
+
+		let $openSubmenus = this.$menu.querySelectorAll( '.sub-menu[aria-hidden="false"]' );
+
+		$openSubmenus = [...$openSubmenus].filter( menu => !menu.contains( $anchor ) );
+
+		// Close the submenus.
+		this.closeSubmenus( $openSubmenus );
 
 		// Bail if set to hover and we're on a large screen.
 		if ( 'hover' === this.settings.action && this.mq.matches ) {
@@ -394,8 +426,8 @@ export default class TenUpNavigation {
 	 * Opens or closes the submenu accordingly.
 	 * Only fires based on settings and if the media query is appropriate.
 	 *
-	 * @param   {object} event The event object.
-	 * @returns {null}         Nothing.
+	 * @param   {Object} event The event object.
+	 * @returns {null}
 	 */
 	listenerSubmenuAnchorFocus( event ) {
 		const $anchor = event.target;
