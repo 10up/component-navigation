@@ -65,7 +65,11 @@
 				content: "";
 				display: inline-block;
 				height: 1em;
+				transition: transform 300ms;
 				width: 1em;
+			}
+			.menu-item-has-children > a[aria-expanded="true"]:after {
+				transform: rotate(-180deg);
 			}
 			.sub-menu {
 				background-color: #777;

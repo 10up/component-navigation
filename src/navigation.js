@@ -8,17 +8,14 @@
  * Create responsive navigation.
  */
 export default class TenUpNavigation {
-
 	/**
 	 * constructor method
 	 * @param {string} element Element selector for navigation container.
 	 * @param {Object} options Object of optional callbacks.
 	 */
 	constructor( element, options = {} ) {
-
 		// Defaults
 		const defaults = {
-
 			action: 'hover',
 			breakpoint: '(min-width: 48em)',
 
@@ -27,11 +24,13 @@ export default class TenUpNavigation {
 			onOpen: null,
 			onClose: null,
 			onSubmenuOpen: null,
-			onSubmenuClose: null,
+			onSubmenuClose: null
 		};
 
-		if ( ! element || 'string' !== typeof element ) {
-			console.error( '10up Navigation: No target supplied. A valid target (menu) must be used.' ); // eslint-disable-line
+		if ( !element || 'string' !== typeof element ) {
+			console.error(
+				'10up Navigation: No target supplied. A valid target (menu) must be used.'
+			); // eslint-disable-line
 			return;
 		}
 
@@ -45,16 +44,22 @@ export default class TenUpNavigation {
 		this.$menu = document.querySelector( element );
 
 		// Bail out if there's no menu.
-		if ( ! this.$menu ) {
-			console.error( '10up Navigation: Target not found. A valid target (menu) must be used.' ); // eslint-disable-line
+		if ( !this.$menu ) {
+			console.error(
+				'10up Navigation: Target not found. A valid target (menu) must be used.'
+			); // eslint-disable-line
 			return;
 		}
 
-		this.$menuToggle = document.querySelector( `[aria-controls="${this.$menu.getAttribute( 'id' )}"]` );
+		this.$menuToggle = document.querySelector(
+			`[aria-controls="${this.$menu.getAttribute( 'id' )}"]`
+		);
 
 		// Also bail early if the toggle isn't set.
-		if ( ! this.$menuToggle ) {
-			console.error( '10up Navigation: No menu toggle found. A valid menu toggle must be used.' ); // eslint-disable-line
+		if ( !this.$menuToggle ) {
+			console.error(
+				'10up Navigation: No menu toggle found. A valid menu toggle must be used.'
+			); // eslint-disable-line
 			return;
 		}
 
@@ -76,7 +81,10 @@ export default class TenUpNavigation {
 		 * Called after the component is initialized on page load.
 		 * @callback onCreate
 		 */
-		if ( this.settings.onCreate && 'function' === typeof this.settings.onCreate ) {
+		if (
+			this.settings.onCreate &&
+			'function' === typeof this.settings.onCreate
+		) {
 			this.settings.onCreate.call();
 		}
 	}
@@ -93,7 +101,6 @@ export default class TenUpNavigation {
 	 * @returns {null}
 	 */
 	setupMenu() {
-
 		const id = this.$menu.getAttribute( 'id' );
 		const href = this.$menuToggle.getAttribute( 'href' );
 		const hrefTarget = href.replace( '#', '' );
@@ -101,14 +108,18 @@ export default class TenUpNavigation {
 		this.$menu.dataset.action = this.settings.action;
 
 		// Check for a valid ID on the menu.
-		if ( ! id || '' === id ) {
-			console.error( '10up Navigation: Target (menu) must have a valid ID attribute.' ); // eslint-disable-line
+		if ( !id || '' === id ) {
+			console.error(
+				'10up Navigation: Target (menu) must have a valid ID attribute.'
+			); // eslint-disable-line
 			return;
 		}
 
 		// Check that the menu toggle is set to use the menu for fallback.
 		if ( hrefTarget !== id ) {
-			console.warn( '10up Navigation: The menu toggle href and menu ID are not equal.' ); // eslint-disable-line
+			console.warn(
+				'10up Navigation: The menu toggle href and menu ID are not equal.'
+			); // eslint-disable-line
 		}
 
 		// Update ARIA.
@@ -125,10 +136,9 @@ export default class TenUpNavigation {
 	 * @returns {null}
 	 */
 	setupSubMenus() {
-
 		this.$submenus.forEach( ( $submenu, index ) => {
-			const $anchor    = $submenu.previousElementSibling;
-			const submenuID  = `tenUp-submenu-${index}`;
+			const $anchor = $submenu.previousElementSibling;
+			const submenuID = `tenUp-submenu-${index}`;
 
 			$submenu.setAttribute( 'id', submenuID );
 
@@ -136,6 +146,10 @@ export default class TenUpNavigation {
 			$submenu.setAttribute( 'aria-label', 'Submenu' );
 			$anchor.setAttribute( 'aria-controls', submenuID );
 			$anchor.setAttribute( 'aria-haspopup', true );
+
+			if ( 'click' === this.settings.action ) {
+				$anchor.setAttribute( 'aria-expanded', false );
+			}
 
 			// Sets up ARIA tags related to screen size based on our media query.
 			this.setMQSubbmenuA11y();
@@ -155,7 +169,10 @@ export default class TenUpNavigation {
 		this.mq.addListener( this.setMQ.bind( comp ) );
 
 		// Menu toggle listener.
-		this.$menuToggle.addEventListener( 'click', this.listenerMenuToggleClick.bind( comp ) );
+		this.$menuToggle.addEventListener(
+			'click',
+			this.listenerMenuToggleClick.bind( comp )
+		);
 
 		// Submenu listeners.
 		// Mainly applies to the anchors of submenus.
@@ -163,10 +180,16 @@ export default class TenUpNavigation {
 			const $anchor = $submenu.previousElementSibling;
 
 			if ( 'hover' === this.settings.action ) {
-				$anchor.addEventListener( 'focus', this.listenerSubmenuAnchorFocus.bind( comp ) );
+				$anchor.addEventListener(
+					'focus',
+					this.listenerSubmenuAnchorFocus.bind( comp )
+				);
 			}
 
-			$anchor.addEventListener( 'click', this.listenerSubmenuAnchorClick.bind( comp ) );
+			$anchor.addEventListener(
+				'click',
+				this.listenerSubmenuAnchorClick.bind( comp )
+			);
 		} );
 
 		// Document specific listeners.
@@ -196,19 +219,17 @@ export default class TenUpNavigation {
 	 * @returns {null}
 	 */
 	setMQMenuA11y() {
-
 		// Large
 		if ( this.mq.matches ) {
 			this.$menu.setAttribute( 'aria-hidden', false );
 			this.$menuToggle.setAttribute( 'aria-expanded', true );
 			this.$menuToggle.setAttribute( 'aria-hidden', true );
-		// Small
+			// Small
 		} else {
 			this.$menu.setAttribute( 'aria-hidden', true );
 			this.$menuToggle.setAttribute( 'aria-expanded', false );
 			this.$menuToggle.setAttribute( 'aria-hidden', false );
 		}
-
 	}
 
 	/**
@@ -237,7 +258,10 @@ export default class TenUpNavigation {
 		 * Called when a submenu item is opened.
 		 * @callback onSubmenuOpen - optional.
 		 */
-		if ( this.settings.onSubmenuOpen && 'function' === typeof this.settings.onSubmenuOpen ) {
+		if (
+			this.settings.onSubmenuOpen &&
+			'function' === typeof this.settings.onSubmenuOpen
+		) {
 			this.settings.onSubmenuOpen.call();
 		}
 	}
@@ -250,7 +274,9 @@ export default class TenUpNavigation {
 	 */
 	closeSubmenu( $submenu ) {
 		const $anchor = $submenu.previousElementSibling;
-		const $childSubmenus = $submenu.querySelectorAll( 'li > .sub-menu[aria-hidden="false"]' );
+		const $childSubmenus = $submenu.querySelectorAll(
+			'li > .sub-menu[aria-hidden="false"]'
+		);
 
 		// Close the submenu by updating ARIA and class.
 		$submenu.setAttribute( 'aria-hidden', true );
@@ -261,7 +287,7 @@ export default class TenUpNavigation {
 			this.closeSubmenus( $childSubmenus );
 		}
 
-		if ( ! this.mq.matches ) {
+		if ( !this.mq.matches ) {
 			$anchor.focus();
 		}
 
@@ -269,7 +295,10 @@ export default class TenUpNavigation {
 		 * Called when a submenu item is closed.
 		 * @callback onSubmenuClose - optional.
 		 */
-		if ( this.settings.onSubmenuClose && 'function' === typeof this.settings.onSubmenuClose ) {
+		if (
+			this.settings.onSubmenuClose &&
+			'function' === typeof this.settings.onSubmenuClose
+		) {
 			this.settings.onSubmenuClose.call();
 		}
 	}
@@ -298,7 +327,8 @@ export default class TenUpNavigation {
 	 * @returns {null}
 	 */
 	listenerMenuToggleClick( event ) {
-		const isExpanded = ( 'true' === this.$menuToggle.getAttribute( 'aria-expanded' ) );
+		const isExpanded =
+			'true' === this.$menuToggle.getAttribute( 'aria-expanded' );
 
 		// Don't act like a link.
 		event.preventDefault();
@@ -308,7 +338,6 @@ export default class TenUpNavigation {
 
 		// Is the menu currently open?
 		if ( isExpanded ) {
-
 			// Update ARIA
 			this.$menu.setAttribute( 'aria-hidden', true );
 			this.$menuToggle.setAttribute( 'aria-expanded', false );
@@ -317,11 +346,13 @@ export default class TenUpNavigation {
 			 * Called when a menu item is closed.
 			 * @callback onClose - optional
 			 */
-			if ( this.settings.onClose && 'function' === typeof this.settings.onClose ) {
+			if (
+				this.settings.onClose &&
+				'function' === typeof this.settings.onClose
+			) {
 				this.settings.onClose.call();
 			}
 		} else {
-
 			// Update ARIA
 			this.$menu.setAttribute( 'aria-hidden', false );
 			this.$menuToggle.setAttribute( 'aria-expanded', true );
@@ -346,10 +377,12 @@ export default class TenUpNavigation {
 	 * @returns {null}
 	 */
 	listenerDocumentClick() {
-		const $openSubmenus = this.$menu.querySelectorAll( '.sub-menu[aria-hidden="false"]' );
+		const $openSubmenus = this.$menu.querySelectorAll(
+			'.sub-menu[aria-hidden="false"]'
+		);
 
 		// Bail if no submenus are found.
-		if ( ! $openSubmenus ) {
+		if ( !$openSubmenus ) {
 			return;
 		}
 
@@ -366,10 +399,12 @@ export default class TenUpNavigation {
 	 * @returns {null}
 	 */
 	listenerDocumentKeyup( event ) {
-		const $openSubmenus = this.$menu.querySelectorAll( '.sub-menu[aria-hidden="false"]' );
+		const $openSubmenus = this.$menu.querySelectorAll(
+			'.sub-menu[aria-hidden="false"]'
+		);
 
 		// Bail early if not using the escape key or if no submenus are found.
-		if ( ! $openSubmenus || 27 !== event.keyCode ) {
+		if ( !$openSubmenus || 27 !== event.keyCode ) {
 			return;
 		}
 
@@ -393,9 +428,11 @@ export default class TenUpNavigation {
 	listenerSubmenuAnchorClick( event ) {
 		const $anchor = event.target;
 		const $submenu = $anchor.nextElementSibling;
-		const isHidden = ( 'true' === $submenu.getAttribute( 'aria-hidden' ) );
+		const isHidden = 'true' === $submenu.getAttribute( 'aria-hidden' );
 
-		let $openSubmenus = this.$menu.querySelectorAll( '.sub-menu[aria-hidden="false"]' );
+		let $openSubmenus = this.$menu.querySelectorAll(
+			'.sub-menu[aria-hidden="false"]'
+		);
 
 		$openSubmenus = [...$openSubmenus].filter( menu => !menu.contains( $anchor ) );
 
@@ -417,9 +454,15 @@ export default class TenUpNavigation {
 		if ( isHidden ) {
 			// Yes, open it.
 			this.openSubmenu( $submenu );
+			if ( 'click' === this.settings.action ) {
+				$anchor.setAttribute( 'aria-expanded', true );
+			}
 		} else {
 			// No, close it.
 			this.closeSubmenu( $submenu );
+			if ( 'click' === this.settings.action ) {
+				$anchor.setAttribute( 'aria-expanded', false );
+			}
 		}
 	}
 
@@ -438,7 +481,7 @@ export default class TenUpNavigation {
 		const $childSubmenus = $menuItem.parentNode.querySelectorAll( '.sub-menu' );
 
 		// Bail early if no submenu is found or if we're on a small screen.
-		if ( ! $submenu || ! this.mq.matches ) {
+		if ( !$submenu || !this.mq.matches ) {
 			return;
 		}
 
