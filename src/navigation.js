@@ -349,7 +349,7 @@ export default class TenUpNavigation {
 		const $openSubmenus = this.$menu.querySelectorAll( '.sub-menu[aria-hidden="false"]' );
 
 		// Bail if no submenus are found.
-		if ( ! $openSubmenus ) {
+		if ( 0 === $openSubmenus.length ) {
 			return;
 		}
 
@@ -369,7 +369,7 @@ export default class TenUpNavigation {
 		const $openSubmenus = this.$menu.querySelectorAll( '.sub-menu[aria-hidden="false"]' );
 
 		// Bail early if not using the escape key or if no submenus are found.
-		if ( ! $openSubmenus || 27 !== event.keyCode ) {
+		if ( 0 === $openSubmenus.length || 27 !== event.keyCode ) {
 			return;
 		}
 
