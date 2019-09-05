@@ -1,6 +1,8 @@
 # 10up Navigation component
 
-An accessible and responsive navigation component.
+> An accessible and responsive navigation component.
+
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level)
 
 ## Installation
 
@@ -119,3 +121,7 @@ let myNavigation = new TenUp.navigation( '.navigation', {
 ## Demo
 
 Example implementations can be found in the `demo` directory.
+
+## Support Level
+
+**Active:** 10up is actively working on this, and we expect to continue work for the foreseeable future including keeping tested up to the most recent version of WordPress.  Bug reports, feature requests, questions, and pull requests are welcome.
