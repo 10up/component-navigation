@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="en-US">
+<html class="no-js">
 	<head>
 		<title>10up Component Library | Navigation</title>
 		<meta charset="utf-8">
@@ -65,11 +65,7 @@
 				content: "";
 				display: inline-block;
 				height: 1em;
-				transition: transform 300ms;
 				width: 1em;
-			}
-			.menu-item-has-children > a[aria-expanded="true"]:after {
-				transform: rotate(-180deg);
 			}
 			.sub-menu {
 				background-color: #777;
@@ -137,9 +133,7 @@
 		</div>
 		<script src="../dist/navigation.js"></script>
 		<script type="text/javascript">
-			let componentInstance = new TenUp.navigation( '#primary-nav', {
-				action: 'click'
-			} );
+			let componentInstance = new TenUp.navigation( '#primary-nav' );
 		</script>
 	</body>
 </html>
