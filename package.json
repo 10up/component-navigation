@@ -1,6 +1,6 @@
 {
   "name": "@10up/component-navigation",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "10up",
   "description": "Accessible navigation component.",
   "main": "./src/navigation.js",
@@ -26,7 +26,7 @@
     "@babel/preset-env": "^7.3.4",
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.5",
-    "browser-sync": "^2.26.3",
+    "browser-sync": "^2.26.7",
     "browser-sync-webpack-plugin": "^2.2.2",
     "css-loader": "^1.0.1",
     "eslint": "^5.15.2",
