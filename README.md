@@ -73,7 +73,7 @@
 ```javascript
 import navigation from '@10up/component-navigation';
 
-navigation( '.navigation', {
+new navigation( '.navigation', {
 	action: 'click',
 	onCreate: function() {
 		console.log( 'onCreate callback' );
