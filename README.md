@@ -71,9 +71,9 @@
 #### NPM
 
 ```javascript
-import navigation from '@10up/component-navigation';
+import Navigation from '@10up/component-navigation';
 
-new navigation( '.navigation', {
+new Navigation( '.navigation', {
 	action: 'click',
 	onCreate: function() {
 		console.log( 'onCreate callback' );
