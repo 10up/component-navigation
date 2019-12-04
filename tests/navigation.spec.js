@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer';
 
-const APP = 'http://localhost:8000/demo/';
+const APP = 'https://10up.github.io/component-navigation/demo/';
 const width = 1440;
 const height = 860;
 
