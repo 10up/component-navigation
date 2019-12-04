@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer';
 
-const APP = 'http://localhost:3000/demo/';
+const APP = 'http://localhost:8000/demo/';
 const width = 1440;
 const height = 860;
 
@@ -10,7 +10,7 @@ let browser;
 beforeAll( async () => {
 
 	browser = await puppeteer.launch( {
-		headless: false,
+		headless: true,
 	} );
 
 	page = await browser.newPage();
@@ -28,41 +28,62 @@ describe( 'Accessibility Tests', () => {
 
 		// Visit the page in headless Chrome
 		await page.goto( APP );
-		let tree;
-		console.log(parentElement);
-		const parentElement = await page.$('.menu-item.menu-item-has-children > a');
-		await page.focus( '.menu-item.menu-item-has-children > a' );
-		await expect( parentElement.getAttribute('aria-haspopup') ).toBe( true );
+		let accessibilityTree;
+
+		// make sure all nav items with children use aria-haspopup
+		const popupArray = await page.$$eval('.menu-item.menu-item-has-children > a', el => el.map(x => x.getAttribute("aria-haspopup")));;
+		popupArray.forEach(function(hasPopup) {
+			expect(hasPopup).toEqual('true');
+		});
+
+		// Tab into the UI
+		await page.keyboard.press( 'Tab' );
+		await page.keyboard.press( 'Tab' );
+
+		accessibilityTree = await page.accessibility.snapshot();
+
+		// Second item should be focused and have a popup
+		await expect( accessibilityTree.children[1].focused ).toBe( true );
+		await expect( accessibilityTree.children[1].haspopup ).toEqual( 'menu' );
 
 		await page.keyboard.press( String.fromCharCode(13) );
 
-		// Focus the first item with chidlren
+	} );
+
+	test( 'Open and close a submenu with a keyboard', async () => {
+
+		await page.goto( APP );
+		let submenu
+
+		// Tab into the UI
 		await page.keyboard.press( 'Tab' );
 		await page.keyboard.press( 'Tab' );
 
-		// Check the aria status
-		// await expect( targetItem.getAttribute('aria-haspopup') ).toBe( true );
+		// Sub menu should be hidden
+		submenu = await page.evaluate('document.querySelector(".sub-menu").getAttribute("aria-hidden")');
+		await expect(submenu).toEqual('true');
 
-		// Hit enter to open the menu
+		// Enter to open the sub menu
 		await page.keyboard.press( String.fromCharCode(13) );
+
+		// submenu should be displayed
+		submenu = await page.evaluate('document.querySelector(".sub-menu").getAttribute("aria-hidden")');
+		await expect(submenu).toEqual('false');
+
+		// Back up and close the submenu
+		await page.keyboard.down( 'Shift' );
 		await page.keyboard.press( 'Tab' );
+		await page.keyboard.up( 'Shift' );
+		await page.keyboard.press( String.fromCharCode(13) );
 
-	} );
-
-	test( 'Open and close a menu sub item with a keyboard', async () => {
-
-		await page.goto( APP );
-
-	} );
-
-	test( 'Open and close a menu item with a mouse', async () => {
-
-		await page.goto( APP );
+		// Sub menu should be hidden
+		submenu = await page.evaluate('document.querySelector(".sub-menu").getAttribute("aria-hidden")');
+		await expect(submenu).toEqual('true');
 
 	} );
 
 } );
 
 afterAll( () => {
-	// browser.close();
+	browser.close();
 } );
