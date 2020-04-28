@@ -2,10 +2,7 @@
 
 > An accessible and responsive navigation component.
 
-[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Build Status][cli-img]][cli-url]
-
-[cli-img]: https://travis-ci.org/10up/component-navigation.svg?branch=master
-[cli-url]: https://travis-ci.org/10up/component-navigation
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level)
 
 ## Installation
 
