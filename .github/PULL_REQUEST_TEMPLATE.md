@@ -39,9 +39,12 @@ Describe the actions you performed (e.g., commands you ran, text you typed, butt
 <!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
 <!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
 - [ ] My code follows the code style of this project.
+- [ ] My updates pass WCAG 2.x accessibility compliance.
 - [ ] My change requires a change to the documentation.
 - [ ] I have updated the documentation accordingly.
+- [ ] If I added a new feature, I have also added test cases to ensure accessibility compliance.
 - [ ] All new and existing tests passed.
+- [ ] I have appropriately bumped the package version to follow SemVer rules (https://semver.org/)
 
 <!-- _NOTE: these things are not required to open a PR and can be done afterwards / while the PR is open._ -->
 
