@@ -4,8 +4,9 @@
 
 [![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Build Status][cli-img]][cli-url]
 
-[cli-img]: https://travis-ci.org/10up/component-navigation.svg?branch=master
-[cli-url]: https://travis-ci.org/10up/component-navigation
+
+[cli-img]: https://github.com/10up/component-countdown-navigation/workflows/Accessibility%20Tests/badge.svg
+[cli-url]: https://github.com/10up/component-countdown-navigation/actions?query=workflow%3A%22Accessibility+Tests%22
 
 ## Installation
 
