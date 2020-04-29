@@ -2,11 +2,7 @@
 
 > An accessible and responsive navigation component.
 
-[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Build Status][cli-img]][cli-url]
-
-
-[cli-img]: https://github.com/10up/component-countdown-navigation/workflows/Accessibility%20Tests/badge.svg
-[cli-url]: https://github.com/10up/component-countdown-navigation/actions?query=workflow%3A%22Accessibility+Tests%22
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) ![Accessibility Tests](https://github.com/10up/component-navigation/workflows/Accessibility%20Tests/badge.svg)
 
 ## Installation
 
