@@ -23,7 +23,6 @@
   "devDependencies": {
     "@10up/babel-preset-default": "^1.0.3",
     "@10up/eslint-config": "^1.0.9",
-    "@babel/runtime-corejs3": "^7.9.6",
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.6",
     "browser-sync": "^2.26.7",
