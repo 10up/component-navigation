@@ -238,7 +238,7 @@ export default class TenUpNavigation {
 		 * @callback onSubmenuOpen - optional.
 		 */
 		if ( this.settings.onSubmenuOpen && 'function' === typeof this.settings.onSubmenuOpen ) {
-			this.settings.onSubmenuOpen.call();
+			this.settings.onSubmenuOpen.call( this, $submenu );
 		}
 	}
 
@@ -270,7 +270,7 @@ export default class TenUpNavigation {
 		 * @callback onSubmenuClose - optional.
 		 */
 		if ( this.settings.onSubmenuClose && 'function' === typeof this.settings.onSubmenuClose ) {
-			this.settings.onSubmenuClose.call();
+			this.settings.onSubmenuClose.call( this, $submenu );
 		}
 	}
 
