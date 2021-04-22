@@ -202,7 +202,7 @@ export default class TenUpNavigation {
 			this.$menu.setAttribute( 'aria-hidden', false );
 			this.$menuToggle.setAttribute( 'aria-expanded', true );
 			this.$menuToggle.setAttribute( 'aria-hidden', true );
-		// Small
+			// Small
 		} else {
 			this.$menu.setAttribute( 'aria-hidden', true );
 			this.$menuToggle.setAttribute( 'aria-expanded', false );
@@ -238,7 +238,7 @@ export default class TenUpNavigation {
 		 * @callback onSubmenuOpen - optional.
 		 */
 		if ( this.settings.onSubmenuOpen && 'function' === typeof this.settings.onSubmenuOpen ) {
-			this.settings.onSubmenuOpen.call();
+			this.settings.onSubmenuOpen.call( this, $submenu );
 		}
 	}
 
@@ -270,7 +270,7 @@ export default class TenUpNavigation {
 		 * @callback onSubmenuClose - optional.
 		 */
 		if ( this.settings.onSubmenuClose && 'function' === typeof this.settings.onSubmenuClose ) {
-			this.settings.onSubmenuClose.call();
+			this.settings.onSubmenuClose.call( this, $submenu );
 		}
 	}
 
@@ -348,6 +348,7 @@ export default class TenUpNavigation {
 	listenerDocumentClick() {
 		const $openSubmenus = this.$menu.querySelectorAll( '.sub-menu[aria-hidden="false"]' );
 
+
 		// Bail if no submenus are found.
 		if ( 0 === $openSubmenus.length ) {
 			return;
@@ -398,6 +399,9 @@ export default class TenUpNavigation {
 		let $openSubmenus = this.$menu.querySelectorAll( '.sub-menu[aria-hidden="false"]' );
 
 		$openSubmenus = [...$openSubmenus].filter( menu => !menu.contains( $anchor ) );
+
+		//also remove the submenu from closing again if the anchor clicked for this submenu is already closing it
+		$openSubmenus = [...$openSubmenus].filter( menu => menu.getAttribute('id') !== $anchor.getAttribute('aria-controls') );
 
 		// Close the submenus.
 		this.closeSubmenus( $openSubmenus );
